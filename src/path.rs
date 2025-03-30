@@ -99,6 +99,10 @@ impl<P: PointScaler> Path<P> {
         return self.0.last()
     }
 
+    pub fn reverse(&mut self){
+        self.0.reverse();
+    }
+
     /// Construct a scaled clone of the path with the origin at the path center
     ///
     /// # Examples
