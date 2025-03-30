@@ -49,7 +49,7 @@ impl PointScaler for Centi {
 }
 
 /// Scale by 1000.
-#[derive(Debug, Default, Copy, Clone, PartialEq, Hash)]
+#[derive(Debug, Default, Copy, Clone, PartialEq, Hash, Eq)]
 pub struct Milli;
 
 impl PointScaler for Milli {
