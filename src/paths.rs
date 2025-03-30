@@ -79,6 +79,8 @@ impl<P: PointScaler> Paths<P> {
         self.0.get(index)
     }
 
+
+
     /// Returns an iterator over the paths in the paths.
     pub fn iter(&self) -> std::slice::Iter<'_, Path<P>> {
         self.0.iter()

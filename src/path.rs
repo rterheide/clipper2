@@ -87,6 +87,18 @@ impl<P: PointScaler> Path<P> {
         )
     }
 
+    pub fn first(&self) -> Option<&Point<P>>{
+        return self.0.get(0)
+    }
+
+    pub fn get(&self, index:usize) -> Option<&Point<P>>{
+        return self.0.get(index)
+    }
+
+    pub fn last(&self) -> Option<&Point<P>> {
+        return self.0.last()
+    }
+
     /// Construct a scaled clone of the path with the origin at the path center
     ///
     /// # Examples
