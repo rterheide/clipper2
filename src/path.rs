@@ -5,7 +5,7 @@ use clipper2c_sys::{
 };
 
 use crate::{
-    inflate, malloc, point_in_polygon, Bounds, Centi, EndType, JoinType, Paths, Point,
+    inflate, offset, malloc, point_in_polygon, Bounds, Centi, EndType, JoinType, Paths, Point,
     PointInPolygonResult, PointScaler,
 };
 
@@ -58,7 +58,7 @@ impl<P: PointScaler> Path<P> {
 
     /// Returns `true` if the path contains at least one point
     pub fn contains_points(&self) -> bool {
-        self.is_empty()
+        !self.is_empty()
     }
 
     /// Creates a path in a rectangle shape
@@ -250,6 +250,21 @@ impl<P: PointScaler> Path<P> {
     ) -> Paths<P> {
         inflate(self.clone(), delta, join_type, end_type, miter_limit)
     }
+
+    /// This function offsets an intpath intpath. TODO add more documentation.
+    pub fn offset(
+        &self,
+        delta: f64,
+        miter_limit: f64,
+        join_type: JoinType,
+        end_type: EndType,
+        arc_tolerance: f64,
+        preserve_collinear: i32,
+        reverse_solution: i32
+    ) -> Paths<P>{
+        return offset(self.clone(), delta, miter_limit, join_type, end_type, arc_tolerance, preserve_collinear, reverse_solution);
+    }
+
 
     /// Construct a new path from this one but with a reduced set of points.
     ///
