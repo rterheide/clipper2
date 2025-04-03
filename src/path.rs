@@ -25,7 +25,7 @@ use crate::{
     derive(serde::Serialize, serde::Deserialize),
     serde(bound = "P: PointScaler")
 )]
-pub struct Path<P: PointScaler = Centi>(Vec<Point<P>>);
+pub struct Path<P: PointScaler = Centi>(pub Vec<Point<P>>);
 
 impl<P: PointScaler> Eq for Path<P> {}
 
