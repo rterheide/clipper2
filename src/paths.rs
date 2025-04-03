@@ -185,6 +185,25 @@ impl<P: PointScaler> Paths<P> {
         inflate(self.clone(), delta, join_type, end_type, miter_limit)
     }
 
+    /// Construct a new set of paths offset from this one by a delta distance.
+    pub fn offset(
+        &self,
+        delta: f64,
+        miter_limit: f64,
+        join_type: JoinType,
+        end_type: EndType,
+        arc_tolerance: f64,
+        preserve_collinear: i32,
+        reverse_solution: i32
+    ) -> Self {
+        let mut new_paths = Paths::new(vec![]);
+        for path in &self.0 {
+            new_paths.append(path.offset(delta, miter_limit, join_type, end_type, arc_tolerance, preserve_collinear, reverse_solution));
+        }
+
+        return new_paths;
+    }
+
     /// Construct a new set of paths from these ones but with a reduced set of
     /// points.
     ///

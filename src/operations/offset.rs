@@ -37,7 +37,6 @@ pub fn offset<P: PointScaler>(
 
 }
 
-
 #[cfg(test)]
 mod test {
     use crate::Centi;
