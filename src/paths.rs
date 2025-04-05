@@ -625,4 +625,12 @@ mod test {
         let deserialized: Paths = serde_json::from_str(&serialized).unwrap();
         assert_eq!(deserialized, paths);
     }
+
+    #[test]
+    fn test_empty() {
+        let paths = Paths::<Centi>::new(vec![]);
+
+        assert!(paths.is_empty());
+        assert!(!paths.contains_points());
+    }
 }

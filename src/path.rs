@@ -678,4 +678,13 @@ mod test {
         let closest_point = path.closest_point(Point::new(15.0, 7.0));
         assert_eq!(closest_point, (Point::new(10.0, 5.0), 5.385164807134504));
     }
+
+    #[test]
+    fn test_empty() {
+        let path = Path::<Centi>::new(vec![]);
+
+        assert!(path.is_empty());
+        assert!(!path.contains_points());
+    }
+    
 }
