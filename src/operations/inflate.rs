@@ -35,7 +35,6 @@ pub fn inflate<P: PointScaler>(
     miter_limit: f64,
 ) -> Paths<P> {
     let delta = P::scale(delta);
-    let miter_limit = P::scale(miter_limit);
     let paths: Paths<P> = paths.into();
 
     unsafe {
@@ -79,5 +78,18 @@ mod test {
         let output: Vec<Vec<(f64, f64)>> =
             inflate::<Centi>(paths, 1.0, JoinType::Square, EndType::Polygon, 0.0).into();
         assert_eq!(output, expected_output);
+    }
+
+    #[test]
+    fn test_inflate_miter_limit_is_a_multiple_of_delta() {
+        // A triangle with a sharp corner of about 30 degrees, which a miter join extends 1 / sin(15 degrees) = 3.9 times the delta.
+        let triangle = vec![(0.0, 0.0), (10.0, 0.0), (10.0, 2.7)];
+        let area = |miter_limit: f64| -> f64 {
+            inflate::<Centi>(triangle.clone(), 1.0, JoinType::Miter, EndType::Polygon, miter_limit)
+                .signed_area()
+        };
+
+        // With a limit of 2 times the delta the sharp corner is squared off, with a limit of 10 it is not.
+        assert!(area(2.0) < area(10.0) - 0.1);
     }
 }
