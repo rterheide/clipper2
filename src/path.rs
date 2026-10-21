@@ -251,7 +251,7 @@ impl<P: PointScaler> Path<P> {
         inflate(self.clone(), delta, join_type, end_type, miter_limit)
     }
 
-    /// This function offsets an intpath intpath. TODO add more documentation.
+    /// This function offsets a path. TODO add more documentation.
     pub fn offset(
         &self,
         delta: f64,

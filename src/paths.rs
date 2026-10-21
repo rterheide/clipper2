@@ -6,7 +6,7 @@ use clipper2c_sys::{
 
 use crate::{
     Bounds, Centi, Clipper, EndType, JoinType, Path, Point, PointScaler, WithSubjects, inflate,
-    malloc, minkowski_diff, minkowski_sum, simplify,
+    malloc, minkowski_diff, minkowski_sum, offset, simplify,
 };
 
 /// A collection of paths.
@@ -196,12 +196,7 @@ impl<P: PointScaler> Paths<P> {
         preserve_collinear: i32,
         reverse_solution: i32
     ) -> Self {
-        let mut new_paths = Paths::new(vec![]);
-        for path in &self.0 {
-            new_paths.append(path.offset(delta, miter_limit, join_type, end_type, arc_tolerance, preserve_collinear, reverse_solution));
-        }
-
-        return new_paths;
+        return offset(self.clone(), delta, miter_limit, join_type, end_type, arc_tolerance, preserve_collinear, reverse_solution);
     }
 
     /// Construct a new set of paths from these ones but with a reduced set of
